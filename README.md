@@ -1,5 +1,6 @@
 <p align="center"><img src="https://i.imgur.com/s74yXT7.png" width="400"></p>
 <p align="center">
+<a href="https://github.com/ssubedir/goriffin/actions"><img src="https://github.com/ssubedir/goriffin/workflows/Go/badge.svg" alt="Build Test"></a>
 <a href="https://goreportcard.com/report/github.com/ssubedir/goriffin"><img src="https://goreportcard.com/badge/github.com/ssubedir/goriffin" alt="Latest Stable Version"></a>
 <a href="https://github.com/ssubedir/goriffin/blob/master/LICENSE"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
 </p>
