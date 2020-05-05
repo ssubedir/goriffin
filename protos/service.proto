@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+service Service{
+    rpc HeartBeatStatus (StatusRequest) returns (StatusResponse);
+}
+
+message StatusRequest{
+}
+
+message StatusResponse{
+    bool  Status = 1;
+    string Time = 2;
+}
