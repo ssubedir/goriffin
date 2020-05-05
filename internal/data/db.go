@@ -13,7 +13,7 @@ func DBConnection() map[string]interface{} {
 
 	errr := godotenv.Load()
 	if errr != nil {
-		log.Fatal("Error loading .env file")
+		log.Fatal(errr)
 	}
 
 	mongoConn := Mongo{

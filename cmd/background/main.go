@@ -30,7 +30,7 @@ func main() {
 
 	err := godotenv.Load()
 	if err != nil {
-		logg.WithFields(logrus.Fields{"error": err}).Info("Error loading .env file")
+		logg.WithFields(logrus.Fields{"error": err}).Fatal("Error loading .env file")
 	}
 
 	logg.Info("Starting Goriffin background worker service")
