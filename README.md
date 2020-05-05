@@ -182,9 +182,6 @@ Returns the status of the action
 
 * [GO](https://golang.org/) - Programming language
 
-## Authors
-
- **[ssubedir](https://github.com/ssubedir)** - *Initial work* 
 
 ## License
 
