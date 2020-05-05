@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"os"
 	"time"
@@ -39,6 +38,8 @@ func NewServices(c proto.ServiceClient) *Services {
 
 func (s *Services) GetServices(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Add("Content-Type", "application/json")
+
 	Connections := data.DBConnection()
 	mongo := Connections["mongodb"].(data.Mongo)
 	mongoConn := mongo.Connect(s.logger)
@@ -57,8 +58,6 @@ func (s *Services) GetServices(w http.ResponseWriter, r *http.Request) {
 	if err = serv.All(context.TODO(), &SERV); err != nil {
 		s.logger.Warn("Error seralizing http services")
 	}
-
-	w.Header().Add("Content-Type", "application/json")
 
 	ToJSON(SERV, w)
 }
@@ -95,6 +94,7 @@ func (s *Services) AddService(w http.ResponseWriter, r *http.Request) {
 
 func (s *Services) RemoveService(w http.ResponseWriter, r *http.Request) {
 
+	w.Header().Add("Content-Type", "application/json")
 	Connections := data.DBConnection()
 	mongo := Connections["mongodb"].(data.Mongo)
 	mongoConn := mongo.Connect(s.logger)
@@ -107,20 +107,47 @@ func (s *Services) RemoveService(w http.ResponseWriter, r *http.Request) {
 	s.logger.Info("Removing Service")
 	var service HTTP
 	reqBody, err := ioutil.ReadAll(r.Body)
+	w.WriteHeader(http.StatusCreated)
 
 	if err != nil {
-		fmt.Fprintf(w, "Enter valid json")
+		ToJSON(&Response{false, time.Now().Local().String()}, w)
 	}
 
 	json.Unmarshal(reqBody, &service)
 
 	_, err = serviceCollection.DeleteOne(context.TODO(), bson.M{"host": service.Host, "stype": service.Stype})
 	if err != nil {
-		log.Fatal(err)
+		ToJSON(&Response{false, time.Now().Local().String()}, w)
 	}
+	ToJSON(&Response{true, time.Now().Local().String()}, w)
+}
+
+func (s *Services) GetService(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add("Content-Type", "application/json")
-	w.WriteHeader(http.StatusCreated)
+
+	Connections := data.DBConnection()
+	mongo := Connections["mongodb"].(data.Mongo)
+	mongoConn := mongo.Connect(s.logger)
+	defer mongoConn.Disconnect()
+
+	// Mongo Setup
+	goriffin := mongoConn.MONGO.Database("goriffin")
+	serviceCollection := goriffin.Collection("service")
+	var SERV []heartbeat.HTTPService
+	var service HTTP
+	reqBody, err := ioutil.ReadAll(r.Body)
+	json.Unmarshal(reqBody, &service)
+	serv, err := serviceCollection.Find(context.TODO(), bson.M{"host": service.Host, "stype": service.Stype})
+
+	if err != nil {
+		s.logger.Warn("Error fetching http services")
+	}
+	if err = serv.All(context.TODO(), &SERV); err != nil {
+		s.logger.Warn("Error seralizing http services")
+	}
+
+	ToJSON(SERV, w)
 
 }
 

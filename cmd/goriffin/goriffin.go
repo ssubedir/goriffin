@@ -55,6 +55,7 @@ func main() {
 	getR := sm.Methods(http.MethodGet).Subrouter()
 	getR.HandleFunc("/", sh.Index)
 	getR.HandleFunc("/services", sh.GetServices)
+	getR.HandleFunc("/service", sh.GetService)
 	getR.HandleFunc("/status", sh.GetStatus)
 
 	// post
