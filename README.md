@@ -110,7 +110,7 @@ Returns a single service.
 	"frequency":30,
 	"request_method":"GET",
 	"request_payload":"",
-	"request_headers":[["Key","Values"]]
+	"request_headers":[["Key","Value"]]
 }
 ```
 ### Add a service
@@ -129,7 +129,7 @@ POST localhost:API_PORT/service
 	"frequency":30,
 	"request_method":"GET",
 	"request_payload":"",
-	"request_headers":[["Key","Values"]]
+	"request_headers":[["Key","Value"]]
 }
 ```
 
@@ -147,7 +147,7 @@ Returns the the added service
 	"frequency":30,
 	"request_method":"GET",
 	"request_payload":"",
-	"request_headers":[["Key","Values"]]
+	"request_headers":[["Key","Value"]]
 }
 
 ```
