@@ -10,7 +10,7 @@ Goriffin is written in go, a heartbeat surveillance program. Goriffin is packed 
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and run the service on your local machine.See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
